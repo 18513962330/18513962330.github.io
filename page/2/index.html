@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>个人博客 | java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#81EA1F">
+    
+    
+    <meta name="keywords" content="记录,生活,日常">
+    <meta name="description" content="编程日记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="编程日记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="wys">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="生活">
+<meta property="article:tag" content="日常">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wys</h5>
+          <a href="mailto:1198152880@qq.com" title="1198152880@qq.com" class="mail">1198152880@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/18513962330" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/7337400600" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">个人博客</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">个人博客</h1>
+        <h5 class="subtitle">
+            
+                java
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch使用(2)"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.214Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(2)/">Elasticsearch使用(2)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好 的支持，用户不需要过度关注分布式设计的细节，即可实现分布式搜索引擎系统的搭建。因 此本次大觅网开发选用 Elasticsearch 做为搜索引擎服务器来实现商品搜索功能。 
+总结来说：Elas...
+    
+
+        <a href="/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(2)/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch使用(1)"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.211Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(1)/">Elasticsearch使用(1)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好 的支持，用户不需要过度关注分布式设计的细节，即可实现分布式搜索引擎系统的搭建。因 此本次大觅网开发选用 Elasticsearch 做为搜索引擎服务器来实现商品搜索功能。 
+总结来说：Elas...
+    
+
+        <a href="/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(1)/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-vue与后台交互"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.209Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/vue%E4%B8%8E%E5%90%8E%E5%8F%B0%E4%BA%A4%E4%BA%92/">vue与后台交互</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        组件与父页的交互
+​    展示
+
+                
+                    
+                    
+                
+                image-20200529101428794
+            
+
+
+
+​    交互发送请求
+
+                
+                 ...
+    
+
+        <a href="/2020/06/15/vue%E4%B8%8E%E5%90%8E%E5%8F%B0%E4%BA%A4%E4%BA%92/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-vue项目实战~编写商城项目（0）~软件安装"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.207Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98~%E7%BC%96%E5%86%99%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%EF%BC%880%EF%BC%89~%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">vue项目实战~编写商城项目（0）~软件安装</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        做项目前先把相关软件安装完毕，软件安装包括
+nodewebspackvue-cligitwebstorm
+1、node安装运行在服务端的 JavaScript，让JavaScript可以做后端程序员的时，编写自己的服务端，在使用Vue脚手架编写程序时需要用到node的环境，所以这里需要安装下，安装十分简单，直接运行node-v10.16.2-x64.msi即可，当然注意他的安装位置，安装完成...
+    
+
+        <a href="/2020/06/15/vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98~%E7%BC%96%E5%86%99%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%EF%BC%880%EF%BC%89~%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-springCloud系列（5）之Config远程配置文件"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.205Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">springCloud系列（5）之Config远程配置文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理，
+Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然后客户端获取这些配置，使用配置
+一般情况下直接重启客户端会自动拉出新的配置，如果是想不启动刷新，则需要配置，注意当前我的spring ...
+    
+
+        <a href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-springCloud系列（5）之Config远程配置文件(1)"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.202Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/">springCloud系列（5）之Config远程配置文件(1)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理，
+Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然后客户端获取这些配置，使用配置
+一般情况下直接重启客户端会自动拉出新的配置，如果是想不启动刷新，则需要配置，注意当前我的spring ...
+    
+
+        <a href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-springCloud系列（4）之Ribbon负载均衡"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.198Z"  itemprop="datePublished">2020-06-15</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%884%EF%BC%89%E4%B9%8BRibbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">springCloud系列（4）之Ribbon负载均衡</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Ribbon负载均衡是一个基于客户端的负载均衡，当发送请求时会读取 Eureka Server 中的服务列表，然后根据负载均衡策略进行访问。
+首先做好准备操作，我们需要一个消费者，两个生产者，注意生产者的names属性是一致的
+在消费者端添加下面的配置，然后访问消费者的controller路径就好
+1、jar包
+1234&lt;dependency&gt;    &lt;groupId&gt...
+    
+
+        <a href="/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%884%EF%BC%89%E4%B9%8BRibbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </div>
+</nav>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span>个人博客</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+		<span>wys &copy; 2019 - 2020</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/page/2/&title=个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/page/2/&title=个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/page/2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=个人博客&url=http://yoursite.com/page/2/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/page/2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aQW7DMAwEwP7/0y7QUw+1s2vJTAqMToGhSKMLQZH6+orH8TOuvx+/RvvfzQMXF3eZe1yOs6VX5iTfzw6Pi4s7yc2D1IvlLrn5UU+/4+Lifhj3+l/Xx2gDJS4u7n/hJpu1c3BxcT+Zm4DyLfOg9uBdDRcXd4HbFkyf+P1gfRcXF7fkHuVIglTeVql3x8XFHeHmJY8nZt67DuHi4s5zk0WT3GM9nYqarLi4uA9w86dUbWvk3vOLF7vj4uIOcvNQUjQ8brVMrpMeXFzcGW7bSmnLGW0Sk4RCXFzcGW6eymy4aZVdkqLDg4uLu4mbF0HapxJFATRvuOLi4o5w8+CyUmBtk5j2qLi4uHu57QUmL6PkGRYuLu7nc9fDWZv0JEVSXFzcSW6SlOT0e9ehvLSKi4s7w82D1Ia2R7z+6ZFwcXEHuUkLJAleLaWuguLi4g5y26JG+8yiDZF1JxYXF3crtw0obfE0mdm2e3FxcWe4efBaaZzkAfHFgXFxcQe5bfFipZC6OX3BxcV9Kzef0157HglkuLi4H8DN+7p5weWP9XFxcQe5bZE0b720bdptZRFcXNwF7sqNI39+0eJwcXHfxP0GEhklC9XK3vUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '人去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '哦哦，在呢！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

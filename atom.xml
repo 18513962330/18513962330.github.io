@@ -1,45 +1,437 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
-  
-  
+  <title>个人博客</title>
+  <icon>http://yoursite.com/icon.png</icon>
+  <subtitle>java</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-15T04:51:20.956Z</updated>
+  <updated>2020-05-27T03:10:35.407Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>wys</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo 添加分类及标签</title>
-    <link href="http://yoursite.com/2019/04/24/hello-world/"/>
-    <id>http://yoursite.com/2019/04/24/hello-world/</id>
-    <published>2019-04-24T07:40:24.000Z</published>
-    <updated>2020-06-15T04:51:20.956Z</updated>
-    
-    <content type="html"><![CDATA[<p>复制代码</p>]]></content>
+    <title>springCloud系列（3）之Zuul网关</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%883%EF%BC%89%E4%B9%8BZuul%E7%BD%91%E5%85%B3/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%883%EF%BC%89%E4%B9%8BZuul%E7%BD%91%E5%85%B3/</id>
+    <published>2020-06-15T07:28:52.242Z</published>
+    <updated>2020-05-27T03:10:35.407Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;复制代码&lt;/p&gt;
-
+        
+        
+          &lt;p&gt;Zuul网关，&lt;/p&gt;
+&lt;p&gt;作用：&lt;/p&gt;
+&lt;p&gt;提供统一的对外入口，识别权限，动态路由。&lt;/p&gt;
+&lt;p&gt;当访问zuul项目是会根据配置自动访问对应服务，通过这种方式进行统一的路由配置&lt;/p&gt;
+&lt;h1 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot;
+        
       
     
     </summary>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>springCloud系列（1）之简单入门</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8B%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8B%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</id>
+    <published>2020-06-15T07:28:52.239Z</published>
+    <updated>2020-05-27T03:13:16.757Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Eureka， 一个基于 REST 服务的，服务注册与发现的组件 &lt;/p&gt;
+&lt;p&gt;它主要包括两个组件：Eureka Server 和 Eureka Client&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Eureka Client：一个Java客户端，用于简化与 Eureka
+        
+      
+    
+    </summary>
     
     
-      <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>springCloud系列（1）之Hystrix容错机制</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/</id>
+    <published>2020-06-15T07:28:52.236Z</published>
+    <updated>2020-05-27T03:10:34.533Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Hystrix 
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RabbitMQ的使用</title>
+    <link href="http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-06-15T07:28:52.234Z</published>
+    <updated>2020-05-27T03:09:27.645Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;RabbitMQ ，也是消息队列&lt;/p&gt;
+&lt;p&gt;使用RabbitMQ 实现分布式事务&lt;/p&gt;
+&lt;p&gt; RabbitMQ是使用Erlang语言来编写的
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RabbitMQ的使用(2)</title>
+    <link href="http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/"/>
+    <id>http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/</id>
+    <published>2020-06-15T07:28:52.230Z</published>
+    <updated>2020-05-27T03:09:24.022Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;RabbitMQ ，也是消息队列&lt;/p&gt;
+&lt;p&gt;使用RabbitMQ 实现分布式事务&lt;/p&gt;
+&lt;p&gt; RabbitMQ是使用Erlang语言来编写的
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>RabbitMQ的使用(1)</title>
+    <link href="http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(1)/"/>
+    <id>http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(1)/</id>
+    <published>2020-06-15T07:28:52.228Z</published>
+    <updated>2020-05-27T03:10:57.047Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;RabbitMQ ，也是消息队列&lt;/p&gt;
+&lt;p&gt;使用RabbitMQ 实现分布式事务&lt;/p&gt;
+&lt;p&gt; RabbitMQ是使用Erlang语言来编写的
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mycat的使用</title>
+    <link href="http://yoursite.com/2020/06/15/mycat%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/06/15/mycat%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-06-15T07:28:52.226Z</published>
+    <updated>2020-05-27T03:09:20.095Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div class=&quot;img-lightbox&quot;&gt;
+                    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+                  
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mycat的使用(1)</title>
+    <link href="http://yoursite.com/2020/06/15/mycat%E7%9A%84%E4%BD%BF%E7%94%A8(1)/"/>
+    <id>http://yoursite.com/2020/06/15/mycat%E7%9A%84%E4%BD%BF%E7%94%A8(1)/</id>
+    <published>2020-06-15T07:28:52.223Z</published>
+    <updated>2020-05-27T03:09:20.159Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div class=&quot;img-lightbox&quot;&gt;
+                    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+                  
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>kafka的使用</title>
+    <link href="http://yoursite.com/2020/06/15/kafka%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/06/15/kafka%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-06-15T07:28:52.219Z</published>
+    <updated>2020-05-27T03:09:30.424Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者在网站中的所有动作流数据。&lt;/p&gt;
+&lt;p&gt;Producer 即生产者，向 Kafka 发送消息，在发送消息时，会根据 Topic
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Elasticsearch使用</title>
+    <link href="http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-06-15T07:28:52.216Z</published>
+    <updated>2020-05-27T03:10:21.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Elasticsearch使用(2)</title>
+    <link href="http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(2)/"/>
+    <id>http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(2)/</id>
+    <published>2020-06-15T07:28:52.214Z</published>
+    <updated>2020-05-27T03:10:17.336Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Elasticsearch使用(1)</title>
+    <link href="http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(1)/"/>
+    <id>http://yoursite.com/2020/06/15/Elasticsearch%E4%BD%BF%E7%94%A8(1)/</id>
+    <published>2020-06-15T07:28:52.211Z</published>
+    <updated>2020-05-27T03:10:20.149Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>vue与后台交互</title>
+    <link href="http://yoursite.com/2020/06/15/vue%E4%B8%8E%E5%90%8E%E5%8F%B0%E4%BA%A4%E4%BA%92/"/>
+    <id>http://yoursite.com/2020/06/15/vue%E4%B8%8E%E5%90%8E%E5%8F%B0%E4%BA%A4%E4%BA%92/</id>
+    <published>2020-06-15T07:28:52.209Z</published>
+    <updated>2020-05-29T02:16:59.043Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;组件与父页的交互&lt;/p&gt;
+&lt;p&gt;​    展示&lt;/p&gt;
+&lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div class=&quot;img-lightbox&quot;&gt;
+                    &lt;div
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>vue项目实战~编写商城项目（0）~软件安装</title>
+    <link href="http://yoursite.com/2020/06/15/vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98~%E7%BC%96%E5%86%99%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%EF%BC%880%EF%BC%89~%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2020/06/15/vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98~%E7%BC%96%E5%86%99%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%EF%BC%880%EF%BC%89~%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</id>
+    <published>2020-06-15T07:28:52.207Z</published>
+    <updated>2020-05-27T03:11:23.596Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;做项目前先把相关软件安装完毕，软件安装包括&lt;/p&gt;
+&lt;p&gt;node&lt;br&gt;webspack&lt;br&gt;vue-cli&lt;br&gt;git&lt;br&gt;webstorm&lt;/p&gt;
+&lt;h3 id=&quot;1、node安装&quot;&gt;&lt;a href=&quot;#1、node安装&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>springCloud系列（5）之Config远程配置文件</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</id>
+    <published>2020-06-15T07:28:52.205Z</published>
+    <updated>2020-05-27T03:10:02.957Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理，&lt;/p&gt;
+&lt;p&gt;Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>springCloud系列（5）之Config远程配置文件(1)</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/</id>
+    <published>2020-06-15T07:28:52.202Z</published>
+    <updated>2020-05-27T03:10:19.145Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理，&lt;/p&gt;
+&lt;p&gt;Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>springCloud系列（4）之Ribbon负载均衡</title>
+    <link href="http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%884%EF%BC%89%E4%B9%8BRibbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>http://yoursite.com/2020/06/15/springCloud%E7%B3%BB%E5%88%97%EF%BC%884%EF%BC%89%E4%B9%8BRibbon%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</id>
+    <published>2020-06-15T07:28:52.198Z</published>
+    <updated>2020-05-27T03:10:33.532Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Ribbon负载均衡是一个基于客户端的负载均衡，当发送请求时会读取 Eureka Server
+        
+      
+    
+    </summary>
+    
+    
     
   </entry>
   

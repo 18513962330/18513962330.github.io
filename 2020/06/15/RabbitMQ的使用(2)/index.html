@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>RabbitMQ的使用(2) | 个人博客 | java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#81EA1F">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="RabbitMQ ，也是消息队列 使用RabbitMQ 实现分布式事务  RabbitMQ是使用Erlang语言来编写的 ，所以需要安装Erlang环境 安装完成后会在服务中开启rabbitMQ服务 然后再浏览器访问http:&#x2F;&#x2F;localhost:15672&#x2F;#&#x2F; 就可以看到rabbitMQ的控制器  使用默认账号登录：guest&#x2F; guest  无法访问后台的话，需要进入sbin目录下运行下面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbitMQ的使用(2)">
+<meta property="og:url" content="http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="RabbitMQ ，也是消息队列 使用RabbitMQ 实现分布式事务  RabbitMQ是使用Erlang语言来编写的 ，所以需要安装Erlang环境 安装完成后会在服务中开启rabbitMQ服务 然后再浏览器访问http:&#x2F;&#x2F;localhost:15672&#x2F;#&#x2F; 就可以看到rabbitMQ的控制器  使用默认账号登录：guest&#x2F; guest  无法访问后台的话，需要进入sbin目录下运行下面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-15T07:28:52.230Z">
+<meta property="article:modified_time" content="2020-05-27T03:09:24.022Z">
+<meta property="article:author" content="wys">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="生活">
+<meta property="article:tag" content="日常">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wys</h5>
+          <a href="mailto:1198152880@qq.com" title="1198152880@qq.com" class="mail">1198152880@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/18513962330" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/7337400600" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">RabbitMQ的使用(2)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">RabbitMQ的使用(2)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-06-15T07:28:52.230Z" itemprop="datePublished" class="page-time">
+  2020-06-15
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#confirm消息确认机制"><span class="post-toc-number">1.</span> <span class="post-toc-text">confirm消息确认机制</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-RabbitMQ的使用(2)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">RabbitMQ的使用(2)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-06-15 15:28:52" datetime="2020-06-15T07:28:52.230Z"  itemprop="datePublished">2020-06-15</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>RabbitMQ ，也是消息队列</p>
+<p>使用RabbitMQ 实现分布式事务</p>
+<p> RabbitMQ是使用Erlang语言来编写的 ，所以需要安装Erlang环境</p>
+<p>安装完成后会在服务中开启rabbitMQ服务</p>
+<p>然后再浏览器访问<a href="http://localhost:15672/#/" target="_blank" rel="noopener">http://localhost:15672/#/</a> 就可以看到rabbitMQ的控制器</p>
+<p> 使用默认账号登录：guest/ guest </p>
+<p>无法访问后台的话，需要进入sbin目录下运行下面命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+
+
+
+<p>AMQP protocol version mismatch; we are version 0-9-1, server sent signature 3,1,0,0</p>
+<p>服务器上同时启动了activeMQ，关掉就好</p>
+<p>测试：</p>
+<p>首先启动消息生产者，调用send方法访问，否则无法启动消费者项目，接受者能接受到数据则说明搭建成功</p>
+<p>发送者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--rabbitMQ--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-amqp&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>生产者配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">	rabbitmq:</span><br><span class="line">        host: 127.0.0.1</span><br><span class="line">        port: 5672</span><br><span class="line">        username: guest</span><br><span class="line">        password: guest</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class RabbitConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public Queue queue() &#123;</span><br><span class="line">        return new Queue(&quot;q_hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Controller中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private AmqpTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">@GetMapping(&quot;send&quot;)</span><br><span class="line">@ResponseBody</span><br><span class="line">public String send()&#123;</span><br><span class="line">    String date &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date());&#x2F;&#x2F;24小时制</span><br><span class="line">    String context &#x3D; &quot;hello &quot; + date;</span><br><span class="line">    System.out.println(&quot;发送的数据 : &quot; + context);</span><br><span class="line">    &#x2F;&#x2F;简单对列的情况下routingKey即为Q名</span><br><span class="line">    this.rabbitTemplate.convertAndSend(&quot;q_hello&quot;, context);</span><br><span class="line"></span><br><span class="line">    return &quot;SUCCESS&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>接收者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@RabbitListener(queues &#x3D; &quot;q_hello&quot;)</span><br><span class="line">public class RabbitUtil &#123;</span><br><span class="line"></span><br><span class="line">    @RabbitHandler</span><br><span class="line">    public void process(String hello) &#123;</span><br><span class="line">        System.out.println(&quot;接收到的数据  : &quot; + hello);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>异常：无法创建data目录，用户名中文造成乱码问题</p>
+<p>在环境变量中添加 RABBITMQ_BASE 环境变量，值是rabbitMQ数据的地址目录</p>
+<p>重新安装rabbit就好</p>
+<h2 id="confirm消息确认机制"><a href="#confirm消息确认机制" class="headerlink" title="confirm消息确认机制"></a>confirm消息确认机制</h2><p>rabbitMQ另一特色消息确认机制，通过消息回掉确认是否收到消息</p>
+<p>通道：</p>
+<p>消息：</p>
+<p>1、添加配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  rabbitmq:</span><br><span class="line">    host: 127.0.0.1</span><br><span class="line">    port: 5672</span><br><span class="line">    username: guest</span><br><span class="line">    password: guest</span><br><span class="line">    publisher-confirms: true</span><br><span class="line">    publisher-returns: true</span><br><span class="line">    listener:</span><br><span class="line">      simple:</span><br><span class="line">        acknowledge-mode: manual</span><br></pre></td></tr></table></figure>
+
+<p>2、发送者配置类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class RabbitConfig &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 创建交换机</span><br><span class="line">    @Bean</span><br><span class="line">    public TopicExchange topicExchange() &#123;</span><br><span class="line">        return new TopicExchange(&quot;message_confirm_exchange&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 创建消息</span><br><span class="line">    @Bean</span><br><span class="line">    public Queue queue() &#123;</span><br><span class="line">        return new Queue(&quot;q_hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 绑定交换机和消息 ？routingKey 作用</span><br><span class="line">    @Bean</span><br><span class="line">    public Binding bindingDirect() &#123;</span><br><span class="line">        return BindingBuilder.bind(queue()).to(topicExchange()).with(&quot;user.#&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3、创建CustomConfirmAndReturnCallback类编写confirm响应消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class CustomConfirmAndReturnCallback implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * PostConstruct: 用于在依赖关系注入完成之后需要执行的方法上，以执行任何初始化.</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @PostConstruct</span><br><span class="line">    public void init() &#123;</span><br><span class="line">        &#x2F;&#x2F;指定 ConfirmCallback</span><br><span class="line">        rabbitTemplate.setConfirmCallback(this);</span><br><span class="line">        &#x2F;&#x2F;指定 ReturnCallback</span><br><span class="line">        rabbitTemplate.setReturnCallback(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 消息从交换机成功到达队列，则returnedMessage方法不会执行;</span><br><span class="line">     * 消息从交换机未能成功到达队列，则returnedMessage方法会执行;</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) &#123;</span><br><span class="line">        System.out.println(&quot;returnedMessage回调方法&gt;&gt;&gt;&quot; + new String(message.getBody(), StandardCharsets.UTF_8) + &quot;,replyCode:&quot; + replyCode</span><br><span class="line">                + &quot;,replyText:&quot; + replyText + &quot;,exchange:&quot; + exchange + &quot;,routingKey:&quot; + routingKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 如果消息没有到达交换机,则该方法中isSendSuccess &#x3D; false,error为错误信息;</span><br><span class="line">     * 如果消息正确到达交换机,则该方法中isSendSuccess &#x3D; true;</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    public void confirm(CorrelationData correlationData, boolean isSendSuccess, String error) &#123;</span><br><span class="line">        &#x2F;&#x2F;System.out.println(&quot;confirm回调方法&gt;&gt;&gt;回调消息ID为: &quot; + correlationData.getId());</span><br><span class="line">        if (isSendSuccess) &#123;</span><br><span class="line">            System.out.println(&quot;confirm回调方法&gt;&gt;&gt;消息发送到交换机成功！&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.println(&quot;confirm回调方法&gt;&gt;&gt;消息发送到交换机失败！，原因 : &quot;+error);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4、发送者发送消息，在controller中调用访问send路径，发送消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">   private AmqpTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">@GetMapping(&quot;send&quot;)</span><br><span class="line">   @ResponseBody</span><br><span class="line">   public String send()&#123;</span><br><span class="line">       String date &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date());&#x2F;&#x2F;24小时制</span><br><span class="line">       String context &#x3D; &quot;hello &quot; + date;</span><br><span class="line">       System.out.println(&quot;发送的数据 : &quot; + context);</span><br><span class="line">       &#x2F;&#x2F;简单对列的情况下routingKey即为Q名</span><br><span class="line">       CorrelationData correlationData &#x3D; new CorrelationData();</span><br><span class="line">       this.rabbitTemplate.convertAndSend(&quot;message_confirm_exchange&quot;, context);</span><br><span class="line"></span><br><span class="line">       return &quot;SUCCESS&quot;;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5、编写接受者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@RabbitListener(queues &#x3D; &quot;q_hello&quot;)</span><br><span class="line">public class RabbitUtil &#123;</span><br><span class="line"></span><br><span class="line">    @RabbitHandler</span><br><span class="line">    public void process(String hello, Channel channel, Message message) &#123;</span><br><span class="line">        System.out.println(&quot;接收到的数据  : &quot; + hello);</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            if(true)&#123;throw new NullPointerException();&#125;</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 返回正确响应   		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">         &#x2F;&#x2F; 返回拒绝响应</span><br><span class="line">         channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);</span><br><span class="line">            &#125; catch (IOException e1) &#123;</span><br><span class="line">                e1.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-27T03:09:24.022Z" itemprop="dateUpdated">2020-05-27 11:09:24</time>
+</span><br>
+
+
+        
+        三文鱼
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="wys">
+            wys
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&title=《RabbitMQ的使用(2)》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&title=《RabbitMQ的使用(2)》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RabbitMQ的使用(2)》 — 个人博客&url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">RabbitMQ的使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(1)/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">RabbitMQ的使用(1)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢您嘞！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span>个人博客</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+		<span>wys &copy; 2019 - 2020</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&title=《RabbitMQ的使用(2)》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&title=《RabbitMQ的使用(2)》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RabbitMQ的使用(2)》 — 个人博客&url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/06/15/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACp0lEQVR42u3aQXIiMRAEwPn/p70Re93FVLXUNofUiQhgUOrQEl16nnh8/R3Ju1//jFdPmH3y2Rh4eHh4o6m/Gt/z8kkn38rZyZzx8PDwtnlJuZ8Bckz+mXzh8PDw8H6Xl0yifUJyEk5+Cw8PD+8zeXkzIl+U2SaEh4eH9wm8pBnx/XSTbyUbQ8673GvBw8PDi3ltAPYJrxfzPTw8PLyDVD0Zs6sG7WYzmy0eHh7eBu+8wXpyCaBtYbRhGB4eHt4GbxZ9taV5du2gbXn8Z/54eHh4C7yTS05tKb97+G6XDA8PD2+DlxTxPLxvg67kYkFyNK+70Xh4eHgjXn7MTUKp2QIlbeLh5oSHh4d3lZc3BWafubBTjVoVeHh4eNu8tjTnzYWTEj9DDv8f4OHh4Y3+p7elfBaMzYKu2ULj4eHhbfA2Hpe0Km61hqONBw8PD+8q77xw53W4hV2YGx4eHt4Cry3obczfpvl5AJYHcnh4eHh3eSdt2faQPSv9swsKeHh4eD/DyyOok7ZvPcXRd9/8Y8DDw8Nb4LXNhTZay5dvdtzHw8PD+xneLNaaNWTbpZmFbXh4eHh7vPYS1UnQ1d5rmB2v8fDw8LZ57bTa2nt3E8rjNDw8PLwN3uwQnDdt89LfXswqFhEPDw9vgTc75p63IW41hZ984OHh4V3i5cU9PzRvsNulx8PDw9vm5RFU8m7ekE3aDddiMDw8PLxj3qwct1cH2uZve23r5Rzw8PDwFniz4ttOsY6sDraZZzbw8PDwSt6tzSCJtdoLAcmivNkY8PDw8NZ4dQ9jFJ7tZXdvNgY8PDy8j+S1k54dpuulxMPDw/tV3uxaQPuE5NeL0A4PDw9vjZe0D/IWQz7FtqlRHKbx8PDw1ngnAVgb/LfXBbZbGHh4eHgl7w842ZKX0dVlMQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '人去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '哦哦，在呢！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
