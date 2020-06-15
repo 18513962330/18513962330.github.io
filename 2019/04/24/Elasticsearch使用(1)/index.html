@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Elasticsearch使用 | 个人博客 | java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#81EA1F">
+    
+    
+    <meta name="keywords" content="Elasticsearch">
+    <meta name="description" content="Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好 的支持，用户不需要过度关注分布式设计的细节，即可实现分布式搜索引擎系统的搭建。因 此本次大觅网开发选用 Elasticsearch 做为搜索引擎服务器来实现商品搜索功能。  总结来说：Elastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch使用">
+<meta property="og:url" content="http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好 的支持，用户不需要过度关注分布式设计的细节，即可实现分布式搜索引擎系统的搭建。因 此本次大觅网开发选用 Elasticsearch 做为搜索引擎服务器来实现商品搜索功能。  总结来说：Elastic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5C11071%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200419164740047.png">
+<meta property="article:published_time" content="2019-04-24T07:40:24.000Z">
+<meta property="article:modified_time" content="2020-06-15T07:30:09.851Z">
+<meta property="article:author" content="wys">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5C11071%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200419164740047.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wys</h5>
+          <a href="mailto:1198152880@qq.com" title="1198152880@qq.com" class="mail">1198152880@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/18513962330" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/7337400600" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Elasticsearch使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Elasticsearch使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-04-24T07:40:24.000Z" itemprop="datePublished" class="page-time">
+  2019-04-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装Elaticsearch"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装Elaticsearch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装kibana"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装kibana</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装logstash"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装logstash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常规操作"><span class="post-toc-number">4.</span> <span class="post-toc-text">常规操作</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Elasticsearch使用(1)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Elasticsearch使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-04-24 15:40:24" datetime="2019-04-24T07:40:24.000Z"  itemprop="datePublished">2019-04-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Elasticsearch 也是基于 Lucene 的搜索引擎应用服务器，采用简单的 RESTfulAPI 来隐藏 Lucene 的复杂性。除此之外，Elasticsearch 对分布式部署提供了很好 的支持，用户不需要过度关注分布式设计的细节，即可实现分布式搜索引擎系统的搭建。因 此本次大觅网开发选用 Elasticsearch 做为搜索引擎服务器来实现商品搜索功能。 </p>
+<p>总结来说：Elasticsearch 是一个分布式的搜索引擎</p>
+<p>其中的相关概念：</p>
+<p>node节点：单个的Elaticsearch服务器</p>
+<p>index索引：相当于关系型数据库中的数据库，注意索引名称小写</p>
+<p>document文档：索引中的单条记录称为文档，文档使用的是JSON格式表示</p>
+<p>type类型：虚拟的逻辑分组，用于过滤文档，相当于MySQL中的表，不同的是type中只能存储一种数据</p>
+<p>文档元数据：文档元数据为 _index, _type，_id，三者用于表示一个文档，index表示文档存放，type表示文档对象类型， id为文档的唯一标识</p>
+<p><img src="C:%5CUsers%5C11071%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200419164740047.png" alt="image-20200419164740047"></p>
+<h2 id="安装Elaticsearch"><a href="#安装Elaticsearch" class="headerlink" title="安装Elaticsearch"></a>安装Elaticsearch</h2><p>注意：</p>
+<p>​    1、三个软件版本号要一致</p>
+<p>​    2、需要先安装JDK环境</p>
+<p>下载安装包</p>
+<p>解压，在bin目录下双击运行elasticsearch.bat命令，运行完成后访问 <a href="http://127.0.0.1:9200/" target="_blank" rel="noopener">http://127.0.0.1:9200/</a> 端口</p>
+<p>获得一个JSON字符串响应说明安装成功，这个是ES的集群信息</p>
+<p>然后接下来安装ES的管理工具，有的公司使用的是head组件，其实一个kibana也可以搞定</p>
+<h2 id="安装kibana"><a href="#安装kibana" class="headerlink" title="安装kibana"></a>安装kibana</h2><p> Kibana是一个针对Elasticsearch的开源分析及可视化平台，常提到的大数据日志处理组件ELK里的K  ，用来搜索、查看交互存储在Elasticsearch索引中的数据。使用Kibana，可以通过各种图表进行高级数据分析及展示。 </p>
+<p>下载完成后解压，进入config目录下修改kibana.yml文件，主要注意修改的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># ES 的地址，注意可以是集群地址</span><br><span class="line">elasticsearch.hosts: [&quot;http:&#x2F;&#x2F;localhost:9200&quot;] </span><br><span class="line"># kibana 的语言，修改后展示的是中文界面</span><br><span class="line">i18n.locale: &quot;zh-CN&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>访问<a href="http://localhost:5601" target="_blank" rel="noopener">http://localhost:5601</a></p>
+<h2 id="安装logstash"><a href="#安装logstash" class="headerlink" title="安装logstash"></a>安装logstash</h2><p>用于同步数据源，属于ELK中的L， 将各种格式各种渠道的数据通过它收集解析之后格式化输出到 Elasticsearch ，最后再由 Kibana 提供的比较友好的 Web 界面进行汇总、分析、搜索 </p>
+<p>下载，解压，注意版本</p>
+<p>在bin目录下创建mysqltoes.conf文件用于查询数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># 读取数据</span><br><span class="line">input &#123;</span><br><span class="line"> stdin &#123; &#125;</span><br><span class="line">    jdbc &#123;</span><br><span class="line">        jdbc_connection_string &#x3D;&gt; &quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;ssm&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_user &#x3D;&gt; &quot;root&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_password &#x3D;&gt; &quot;root&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_driver_library &#x3D;&gt; &quot;D:&#x2F;ELK&#x2F;logstash-7.6.2&#x2F;bin&#x2F;mysql-connector-java-5.1.38.jar&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_driver_class &#x3D;&gt; &quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_paging_enabled &#x3D;&gt; &quot;true&quot;</span><br><span class="line"></span><br><span class="line">        jdbc_page_size &#x3D;&gt; &quot;50000&quot;</span><br><span class="line">        statement &#x3D;&gt; &quot;SELECT * FROM &#96;user&#96;&quot;</span><br><span class="line">        schedule &#x3D;&gt; &quot;* * * * *&quot;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> output &#123;</span><br><span class="line">     stdout &#123;</span><br><span class="line">        codec &#x3D;&gt; json_lines</span><br><span class="line">    &#125;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">        hosts &#x3D;&gt; &quot;localhost:9200&quot;</span><br><span class="line">        index &#x3D;&gt; &quot;test_user&quot;</span><br><span class="line">        document_type &#x3D;&gt; &quot;_doc&quot;</span><br><span class="line">        document_id &#x3D;&gt; &quot;%&#123;id&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logstash -f mysqltoes.conf</span><br><span class="line">一致开着就好，当数据库发生更改是，Elasticsearch中索引也会跟着更新</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h2><p>GET：以 GET 方式进行请求，一般用于数据查询。 </p>
+<p>POST：以 POST 方式进行请求，一般用于查询数据、有时也用作新增数据和修改数据。 </p>
+<p>PUT：以 PUT 方式进行请求，一般用于添加数据、修改数据。 </p>
+<p>DELETE：以 DELETE 方式进行请求，一般用于删除数据。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">添加索引</span><br><span class="line">PUT &#x2F;test1 </span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;:&#123;</span><br><span class="line">    &quot;number_of_shards&quot;:3,</span><br><span class="line">    &quot;number_of_replicas&quot;:2</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">      &quot;properties&quot;:&#123;</span><br><span class="line">        &quot;name&quot;:&#123;</span><br><span class="line">          &quot;type&quot;:&quot;text&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">删除索引</span><br><span class="line">DELETE 索引名</span><br></pre></td></tr></table></figure>
+
+<p>文档操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">新增文档</span><br><span class="line">POST &#x2F;test1&#x2F;_doc </span><br><span class="line">&#123;</span><br><span class="line"> &quot;name&quot;:&quot;asd&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">获取 GET &#x2F;test1&#x2F;_doc&#x2F;nTm5kXEBLntOdeBcP3FH</span><br><span class="line"></span><br><span class="line">改</span><br><span class="line">PUT &#x2F;test1&#x2F;_doc&#x2F;nTm5kXEBLntOdeBcP3FH</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;hello&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">查询所有</span><br><span class="line">GET &#x2F;goods1&#x2F;_search</span><br><span class="line"></span><br><span class="line">match 子句 用于匹配度查询</span><br><span class="line">GET &#x2F;test1&#x2F;_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;name&quot;: &quot;asd&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">term 精准查询</span><br><span class="line">term ？？？ </span><br><span class="line">GET &#x2F;test1&#x2F;_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;term&quot;: &#123;</span><br><span class="line">      &quot;name&quot;: &quot;asd&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">range 对比大小 “gte”表示”大于等于”、”lte”表示“小于等于”</span><br><span class="line">GET &#x2F;test1&#x2F;_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;range&quot;: &#123;</span><br><span class="line">      &quot;age&quot;: &#123;</span><br><span class="line">      	“gte”:...</span><br><span class="line">      	”lte”:...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">多个条件查询</span><br><span class="line">must：文档必须匹配这些条件才能被包含进来。</span><br><span class="line">must_not：文档必须不匹配这些条件才能被包含进来。</span><br><span class="line">should：如果文档满足 should 内的条件，将为该文档增加_score，否则，无任何影响</span><br><span class="line">GET &#x2F;test1&#x2F;_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must_not&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;name&quot;:&quot;asd&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">使用from和size命令分页</span><br><span class="line">GET &#x2F;test1&#x2F;_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;from&quot;: 0, </span><br><span class="line">  &quot;size&quot;: 20, </span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;: &#123;</span><br><span class="line">      &quot;must_not&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;match&quot;: &#123;</span><br><span class="line">            &quot;name&quot;:&quot;asd&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>mysql增量更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改数据库，增加时间列update_date，这里列主要用于记录数据更新时间，然后根据更新时间作为条件判断，判断是否更新数据到ES</span><br><span class="line"></span><br><span class="line">2、修改config配置</span><br><span class="line">use_column_value &#x3D;&gt; false</span><br><span class="line">jdbc_default_timezone &#x3D;&gt;&quot;Asia&#x2F;Shanghai&quot;</span><br><span class="line">statement &#x3D;&gt; &quot;SELECT * FROM &#96;user&#96; update_date &gt; :sql_last_value&quot;</span><br><span class="line"></span><br><span class="line">3、启动L，然后修改MySQL中数据，注意修改更新时间，然后稍等后查询K</span><br></pre></td></tr></table></figure>
+
+
+
+<p>中文分词</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik</span><br><span class="line">GET _analyze?pretty </span><br><span class="line">&#123;</span><br><span class="line">    &quot;analyzer&quot;:&quot;ik_max_word&quot;,</span><br><span class="line">    &quot;text&quot;:&quot;中国人民警察的服务宗旨&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Java操作Elasticsearch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ESRestService &#123;</span><br><span class="line"></span><br><span class="line">    private RestHighLevelClient client;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 根据索引名以及ID查询数据</span><br><span class="line">     * @param index 索引名称</span><br><span class="line">     * @param id    数据ＩＤ</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public String getDocument(String index, String id)&#123;</span><br><span class="line">        GetResponse getResponse &#x3D; null;</span><br><span class="line">        try&#123;</span><br><span class="line">            client &#x3D; new RestHighLevelClient(</span><br><span class="line">                    RestClient.builder(new HttpHost(&quot;localhost&quot;, 9200, &quot;http&quot;)));</span><br><span class="line"></span><br><span class="line">            GetRequest getRequest &#x3D; new GetRequest(index,&quot;_doc&quot;, id );</span><br><span class="line">            getResponse &#x3D; client.get(getRequest, RequestOptions.DEFAULT);</span><br><span class="line">            System.out.println(JSONObject.toJSONString(getResponse));</span><br><span class="line">            client.close();</span><br><span class="line">        &#125;catch(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return JSONObject.toJSONString(getResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 进行全文检索</span><br><span class="line">     * @param index</span><br><span class="line">     * @param value</span><br><span class="line">     * @param current</span><br><span class="line">     * @param size</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public String keywordSearch(String index, String value,</span><br><span class="line">                                int current, int size)&#123;</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; result &#x3D; null;</span><br><span class="line">        try&#123;</span><br><span class="line">            client &#x3D; new RestHighLevelClient(</span><br><span class="line">                    RestClient.builder(new HttpHost(&quot;127.0.0.1&quot;, 9200, &quot;http&quot;)));</span><br><span class="line">            SearchRequest searchRequest &#x3D; new SearchRequest();</span><br><span class="line">            searchRequest.indices(index);</span><br><span class="line"></span><br><span class="line">            SearchSourceBuilder searchSourceBuilder &#x3D; new SearchSourceBuilder();</span><br><span class="line">            &#x2F;&#x2F;支持全词搜索的字段有：keywordName，keywordAuthor&quot;</span><br><span class="line">            searchSourceBuilder.query(QueryBuilders</span><br><span class="line">                    .multiMatchQuery(value, &quot;name&quot;));</span><br><span class="line">            searchSourceBuilder.from(current);</span><br><span class="line">            searchSourceBuilder.size(size);</span><br><span class="line"></span><br><span class="line">            searchRequest.source(searchSourceBuilder);</span><br><span class="line">            SearchResponse searchResponse &#x3D; client.search(searchRequest, RequestOptions.DEFAULT);</span><br><span class="line">            System.out.println(JSONObject.toJSONString(searchResponse));</span><br><span class="line">            &#x2F;&#x2F;处理返回结果</span><br><span class="line">            result &#x3D; dealResult(searchResponse.getHits());</span><br><span class="line">            client.close();</span><br><span class="line">        &#125;catch(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return JSONObject.toJSONString(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 进行分页检索</span><br><span class="line">     * @param index</span><br><span class="line">     * @param current</span><br><span class="line">     * @param size</span><br><span class="line">     * @return</span><br><span class="line">     * @throws IOException</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public String searchAll(String index, int current, int size) throws IOException &#123;</span><br><span class="line">        client &#x3D; new RestHighLevelClient(</span><br><span class="line">                RestClient.builder(new HttpHost(&quot;localhost&quot;, 9200, &quot;http&quot;)));</span><br><span class="line">        SearchRequest searchRequest &#x3D; new SearchRequest(index);</span><br><span class="line"></span><br><span class="line">        SearchSourceBuilder searchSourceBuilder &#x3D; new SearchSourceBuilder();</span><br><span class="line">        searchSourceBuilder.query(QueryBuilders.matchAllQuery());</span><br><span class="line">        searchSourceBuilder.from(current);</span><br><span class="line">        searchSourceBuilder.size(size);</span><br><span class="line"></span><br><span class="line">        searchRequest.source(searchSourceBuilder);</span><br><span class="line">        SearchResponse searchResponse &#x3D; client.search(searchRequest, RequestOptions.DEFAULT);</span><br><span class="line">        System.out.println(JSONObject.toJSONString(searchResponse));</span><br><span class="line">        &#x2F;&#x2F;处理返回结果</span><br><span class="line">        SearchHits hits &#x3D; searchResponse.getHits();</span><br><span class="line">        client.close();</span><br><span class="line">        return JSONObject.toJSONString(hits);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private List&lt;Map&lt;String, Object&gt;&gt; dealResult(SearchHits hits)&#123;</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; result &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">        for (SearchHit hit : hits.getHits()) &#123;</span><br><span class="line">            Map&lt;String, Object&gt; map &#x3D; hit.getSourceAsMap();</span><br><span class="line">            result.add(map);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-15T07:30:09.851Z" itemprop="dateUpdated">2020-06-15 15:30:09</time>
+</span><br>
+
+
+        
+        三文鱼
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="wys">
+            wys
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&title=《Elasticsearch使用》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&title=《Elasticsearch使用》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Elasticsearch使用》 — 个人博客&url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/04/24/Log4j%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">log4j的使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/04/24/kafka%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">kafka的使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢您嘞！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span>个人博客</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+		<span>wys &copy; 2019 - 2020</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&title=《Elasticsearch使用》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&title=《Elasticsearch使用》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Elasticsearch使用》 — 个人博客&url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/24/Elasticsearch%E4%BD%BF%E7%94%A8(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3a0W4bMQwEwPz/T7dAn1I0dnZF0S6CuScjcO40MiDySH58xNevP9fnz4+uf7/f/iW/57ULDw8P72jpya0TQLLoZBMfbWu+Zjw8PLxtXhIMnjOeY9rv5+v5xoKHh4f3Vl6bOifBo90CPDw8vJ/BO7vyMPPmwICHh4c3KEbkh3temMhDxXqtBQ8PDy/mnTXA3vt5vb+Hh4eHd9RVnzTG2hZa+6xohXh4eHgLvLOEOCkinLXN8mGsoryLh4eHd5WXJKlnr/2TAkcbbOr6NB4eHt6AlzTp2yGAOi7FT7+AxMPDwxvznie4xQt/mZrnW3mWsv9Va8HDw8Nb4+U3yssNt1LqZDT2m8CAh4eHd4l3lnne2prkie1AAx4eHt42LwfkxYWE/aItw8PDw9s6jeueURJtzrYsB+dPxMPDw9vm5YyoEBCnwsnRP9lEPDw8vFu8tjCaD0VNhqvy/6pnyvDw8PAu8fLm1kaRot2+Iszg4eHhvZDXjkydlRvyca48UH0xdIWHh4e3xtsYwErO5zzVrlNzPDw8vBfyJgd6EkjyRU9GH/Dw8PA2ePm4QM4e9d/K8YXDJhweHh7eJd7ZEtuSxLy11v4YeHh4eHd5+Y3aNDcvSeSF2jqM4eHh4a3x5qlzG0jOCsR5aMHDw8Pb4+UH9HYa3Y555U/Ew8PDu8vLm1I5uy0i5AXfYtwKDw8Pb403eXNvj+9849r2WBTx8PDw8C7xJqNUOTIfHTgbyXp4Zzw8PLwF3uTYnZRlz+6wF1Tw8PDw2vUkweAshLSljXx8oSh84OHh4a3x2jLrJJGdD2YVQQgPDw/vv+G1QaXdprMBrIddPjw8PLw38c4O97aQkQDydeLh4eHt8SbFiHlqPilnRIEBDw8P7yrvwsTWUeo8GQtIggQeHh7eAu83FxcYPNc+y+AAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '人去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '哦哦，在呢！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Config | 个人博客 | java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#81EA1F">
+    
+    
+    <meta name="keywords" content="Config">
+    <meta name="description" content="在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理， Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然后客户端获取这些配置，使用配置 一般情况下直接重启客户端会自动拉出新的配置，如果是想不启动刷新，则需要配置，注意当前我的spring Clo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Config">
+<meta property="og:url" content="http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理， Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然后客户端获取这些配置，使用配置 一般情况下直接重启客户端会自动拉出新的配置，如果是想不启动刷新，则需要配置，注意当前我的spring Clo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-04-24T07:40:24.000Z">
+<meta property="article:modified_time" content="2020-06-15T07:39:23.621Z">
+<meta property="article:author" content="wys">
+<meta property="article:tag" content="Config">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wys</h5>
+          <a href="mailto:1198152880@qq.com" title="1198152880@qq.com" class="mail">1198152880@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/18513962330" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/7337400600" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Config</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Config</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-04-24T07:40:24.000Z" itemprop="datePublished" class="page-time">
+  2015-04-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringConfig/">SpringConfig</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-springCloud系列（5）之Config远程配置文件(1)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Config</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-04-24 15:40:24" datetime="2015-04-24T07:40:24.000Z"  itemprop="datePublished">2015-04-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringConfig/">SpringConfig</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在微服务的项目中，经常会有很多的的配置文件，为减少配置文件的处理，这时候会使用springCloud中的config模块进行开发处理，</p>
+<p>Config分为server服务端和client客户端，我们需要服务端从远程工具上（git，SVN，码云）下载需要的配置，然后客户端获取这些配置，使用配置</p>
+<p>一般情况下直接重启客户端会自动拉出新的配置，如果是想不启动刷新，则需要配置，注意当前我的spring Cloud版本是2.0.0</p>
+<p>1、在码云上编写配置文件 <strong>config-dev.yml</strong>  ，其实就是一个普通的配置文件，配置文件名上最好加-，这样方便后面配置文件的编写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8085</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: user-provider</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: com.mysql.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;ssm?useUnicode&#x3D;true&amp;characterEncoding&#x3D;utf-8&amp;useSSL&#x3D;false</span><br><span class="line">    password: root</span><br><span class="line">    username: root</span><br><span class="line">mybatis:</span><br><span class="line">  type-aliases-package: com.lihao</span><br><span class="line">  mapper-locations: classes:mapper&#x2F;*Mapper.xml</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http:&#x2F;&#x2F;root:123456@localhost:7776&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2、编写config-server项目负责从码云上下载对应配置</p>
+<p>首先在原来的springCloud项目依赖前提下增加新的依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- config --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-config-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>增加配置文件application.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 7000</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: config-server</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      server:</span><br><span class="line">        git:</span><br><span class="line">          uri:  https:&#x2F;&#x2F;gitee.com&#x2F;lihao2&#x2F;config-server.git</span><br><span class="line">          username: 1107156171@qq.com</span><br><span class="line">          password: lihao6281633393</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http:&#x2F;&#x2F;root:123456@localhost:7776&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在启动类上添加@EnableConfigServer注解，最后运行启动类</p>
+<p>启动后访问<a href="http://localhost:7000/config-dev.yml" target="_blank" rel="noopener">http://localhost:7000/config-dev.yml</a> 可以看到自己写的配置文件内容说明成功</p>
+<p>3、编写config-client</p>
+<p>添加依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在resources目录下创建bootstrap.yml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">注意name的值和profile的值就是在Git中配置文件的名称</span><br><span class="line">我的配置文件名是config-dev，所以下面的name值是config，profile的值是dev</span><br><span class="line"></span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: config</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      uri: http:&#x2F;&#x2F;localhost:7000&#x2F;</span><br><span class="line">      profile: dev</span><br></pre></td></tr></table></figure>
+
+
+
+<p>4、有的时候需要直接更改配置，但是这时候不能直接使用，需要重启服务，下面的配置主要是完成不重启项目，直接<strong>手动刷新配置</strong>。</p>
+<p>在远程gitee上添加profile属性，什么值无所谓，主要用于展示刷新配置的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">profile： one</span><br></pre></td></tr></table></figure>
+
+<p>在config-client中添加jar包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在配置文件bootstrap.yml添加下面的设置，取消springBoot验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false</span><br></pre></td></tr></table></figure>
+
+<p>最后是controller类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RefreshScope</span><br><span class="line">public class UserService &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 获取配置中的profile值，并注入</span><br><span class="line">    @Value(&quot;$&#123;profile&#125;&quot;)</span><br><span class="line">    private String profile;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;t&quot;)</span><br><span class="line">    public String test()&#123;</span><br><span class="line">        System.out.println(profile);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后测试</p>
+<p>首先所有都启动，然后修改远程中profile的值，然后访问  /refresh 路径，注意访问方式是POST</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-15T07:39:23.621Z" itemprop="dateUpdated">2020-06-15 15:39:23</time>
+</span><br>
+
+
+        
+        三文鱼
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="wys">
+            wys
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Config/" rel="tag">Config</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&title=《Config》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&title=《Config》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Config》 — 个人博客&url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/11/vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98~%E7%BC%96%E5%86%99%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%EF%BC%880%EF%BC%89~%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">vue实战</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/04/24/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8(2)/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">RabbitMQ的使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢您嘞！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span>个人博客</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+		<span>wys &copy; 2019 - 2020</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&title=《Config》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&title=《Config》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Config》 — 个人博客&url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2015/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%885%EF%BC%89%E4%B9%8BConfig%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiklEQVR42u3aS27jQAwFwNz/0p7tBInlR7KNmHZpNcgorVYpQPP39RVftzvX///78857v3vqzp87vN7zvTuPXZgwYcKE6SWZbpdXvtGELFntGm7+wsn6v6yMCRMmTJiWMyXLnQ0mHmwr3k/Omr8XJkyYMGH6ZKYe6xwoCTWqAQomTJgwYcKUE1SDgF6aWl2/lzxjwoQJE6b3Y6oud/2AyZGfJKvXa1Zbm4dr4ZgwYcKE6cWY5gfz3n8fvjBhwoQJ04sx3YrXvH2YHPP5CkkJeH5hwoQJE6a9TPkBmXNUy6yTRuZ8ACh/LiZMmDBh2suUH9K9cGEy4pOUbvN1jrVdMWHChAnTWzDlj5yHCPNw5FRhOgpWMGHChAnTcqb8gM+3nm9ukh7nnyT/g8CECRMmTHuZktQ0ST5PJat5mNJ7Yq9sjQkTJkyYtjNNXn5+3E6Ks3niPUnRMWHChAnTdqZeqTcv++aI1c/w7PR4lPpiwoQJE6YXYMoP7Hy0pXf/pLlYTb97QQMmTJgwYdrOND/Cq03KanLbG+XJW60RFiZMmDBhWsXU20q1CHuq8NobG5o8CxMmTJgwbWfqjexUi6Tzj3G2eXkg5caECRMmTAuZ8tZmnr5WD93JF54HLsf+jjBhwoQJ0wsz9V4gOeyrIzLPSHoPDAZhwoQJE6ZVTPkv9NLjKkEyMHR2nSgEwYQJEyZMa5mSV6oe1fMkOXn6JF1vrowJEyZMmBYyVY/Ss5voNUQnSXK1KvAtbsKECRMmTMuZegM3zQePx2iSxDg/zQsBASZMmDBhWsXUS3FziCpfoftaTIOrLdVoiAcTJkyYMC1kyg/CgvfTCsr5q1bf69hrYMKECROmP2WaDHdOwoj8qD779HwY6JciLyZMmDBhWshURammuMnhnbzALb4mIUthvgkTJkyYMC1hqpZZ543AXstzPriTNGLv7hMTJkyYMK1lqh6fOdYkEa02Natl6OqIEiZMmDBhem+mPN3NV6gS5Clu9WPkIQImTJgwYdrING89Jq9UTbB760yS3gf7wYQJEyZMa5l6bcWzRdtqm7OaslaDgKj3iwkTJkyYljBdb6JXCO4lzL1Pdb2fahBTTn0xYcKECdMqpt5PJj/Ph3Kqx3zy+fMdYsKECROm7UzRwEqrGdlrbfbS2q/WFQlgwoQJE6blTJOxm2rCmUPne8u586L2gwoBJkyYMGFaxTQZA+0VdnuF4F6jNA9oCqkvJkyYMGFayJSj5IXaAwXWcfG3V7b+dg8mTJgwYVrL1GsTVgvEvd9KPky+w0nxFxMmTJgw7WW6Fa+8lVh9gWpY0Bsb6qXxmDBhwoRpL1P1gMwf0Es+TxWIk0Zpr1mLCRMmTJg2Mj27cdgbo+mVieet2btPx4QJEyZMy5l6xdlJAlkt8labjqcKvpgwYcKE6TOZJi3MfGhmEpT02q4PUl9MmDBhwvQBTPnozLxSenb9JA2+ez8mTJgwYVrO1GtA9oq/1WJrXuSdFHwffAxMmDBhwrSWqVrhrI7s5GFHPtaTf6Tq5z9WCMaECRMmTH/P9A9Qmf0uvWi/EgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '人去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '哦哦，在呢！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

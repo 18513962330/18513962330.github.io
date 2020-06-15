@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hystrix | 个人博客 | java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#81EA1F">
+    
+    
+    <meta name="keywords" content="Hystrix">
+    <meta name="description" content="Hystrix  服务熔断机制，当服务提供者服务出现异常时的操作，当服务出错后会自动进入到错误处理的方法 服务消费者，只需要在消费者端处理即可 创建UserFallback类用于异常处理，注意UserFallback需要实现UserService接口，这里的UserService指的是针对哪一个服务接口进行的熔断处理，针对哪个接口就需要实现这个接口 12345678910@Componentpub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hystrix">
+<meta property="og:url" content="http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="Hystrix  服务熔断机制，当服务提供者服务出现异常时的操作，当服务出错后会自动进入到错误处理的方法 服务消费者，只需要在消费者端处理即可 创建UserFallback类用于异常处理，注意UserFallback需要实现UserService接口，这里的UserService指的是针对哪一个服务接口进行的熔断处理，针对哪个接口就需要实现这个接口 12345678910@Componentpub">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-04-24T07:40:24.000Z">
+<meta property="article:modified_time" content="2020-06-15T07:38:31.064Z">
+<meta property="article:author" content="wys">
+<meta property="article:tag" content="Hystrix">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wys</h5>
+          <a href="mailto:1198152880@qq.com" title="1198152880@qq.com" class="mail">1198152880@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/18513962330" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/7337400600" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hystrix</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hystrix</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2011-04-24T07:40:24.000Z" itemprop="datePublished" class="page-time">
+  2011-04-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringCloud/">SpringCloud</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-springCloud系列（1）之Hystrix容错机制"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hystrix</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2011-04-24 15:40:24" datetime="2011-04-24T07:40:24.000Z"  itemprop="datePublished">2011-04-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringCloud/">SpringCloud</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Hystrix  服务熔断机制，当服务提供者服务出现异常时的操作，当服务出错后会自动进入到错误处理的方法</p>
+<p>服务消费者，只需要在消费者端处理即可</p>
+<p>创建UserFallback类用于异常处理，注意UserFallback需要实现UserService接口，这里的UserService指的是针对哪一个服务接口进行的熔断处理，针对哪个接口就需要实现这个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class UserFallback implements UserService&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">    public List&lt;User&gt; getList() &#123;</span><br><span class="line">        System.out.println(&quot;服务异常，稍后重试&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后在服务上声明fallback</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name &#x3D; &quot;user-provider&quot;,fallback &#x3D; UserFallback.class)</span><br><span class="line">public interface UserService &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value &#x3D; &quot;&#x2F;getList&quot;,method &#x3D; RequestMethod.GET)</span><br><span class="line">    public List&lt;User&gt; getList();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后修改配置文件application.yml，增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后照旧调用服务即可 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;order&quot;)</span><br><span class="line">public class OrderController &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @SuppressWarnings(&quot;All&quot;)</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">   @RequestMapping(&quot;&#x2F;userList&quot;)</span><br><span class="line">    public List&lt;User&gt; userList()&#123;</span><br><span class="line">        return userService.getList();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这时候就会执行UserFallback中的方法，不管是服务报错还是提供者断掉都会去执行</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-06-15T07:38:31.064Z" itemprop="dateUpdated">2020-06-15 15:38:31</time>
+</span><br>
+
+
+        
+        三文鱼
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="wys">
+            wys
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hystrix/" rel="tag">Hystrix</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&title=《Hystrix》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&title=《Hystrix》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hystrix》 — 个人博客&url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2013/04/24/RabbitMQ%E7%9A%84%E4%BD%BF%E7%94%A8/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">RabbitMQ的使用</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢您嘞！
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span>个人博客</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+		<span>wys &copy; 2019 - 2020</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&title=《Hystrix》 — 个人博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&title=《Hystrix》 — 个人博客&source=编程日记" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hystrix》 — 个人博客&url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2011/04/24/springCloud%E7%B3%BB%E5%88%97%EF%BC%881%EF%BC%89%E4%B9%8BHystrix%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEd0lEQVR42u3aS27jMBAFwNz/0pltBojt97qVwFRKKwO2JLJogOzPx0d8fZbX17sefX70++TJyTOTUV18YcKECROmt2TKH5288vm9zyfZfjsjyHExYcKECdOdmJLHPX/NbBDPJ5b8MkfcPBMTJkyYMP0dpudRYfJttAGPDhn59o8JEyZMmDAlB4L9AaLNsrYB8Ow4ggkTJkyY7sfUFiY3KFcFq8mTNwVUTJgwYcJ0D6Z2M77T5x/pb8KECRMmTG/DtG88zTf4WWPQLMX8eemFCRMmTJjOZco3yBzr2vTujGBTmn04WkyYMGHCdCxTUgLcTyZv2WlTw7Nla9PcmDBhwoTpRKZNwNkWMlusZBrt2JKFieq9mDBhwoTpEKY2vJxNIN+2Z60zs/RxMiNMmDBhwnQ6U56ETTb4a7tc8nJpGzDXC4wJEyZMmI5l2m+u+QafTD4nyIHaX0aLhwkTJkyYjmKahZr5NjwLodvjxT48rnuIMGHChAnT2zNt0rItX/KcGfqmKBsdGjBhwoQJ042Y8om1KLPdNk9Db447L96OCRMmTJiOZWoDxf1RIE/gtv1Hv5oLx4QJEyZMhzC1AeS+fWf/y/YokKeqo9AXEyZMmDAdyDR7WR5SJqXKn2vlaYP5b8aACRMmTJgOZ5oNdBN2bgLp2ahaUEyYMGHCdG+mNjG6KVUmG3b7nPZQ8mJ5MGHChAnTsUyzhphZirYNufMQd1bszA8QmDBhwoTpTkx5WNgOKD92tJNsxzlMOmPChAkTpmOZ8lJfG3BelZBNgt62FJp/xoQJEyZM5zLljSyzRO1PbNJFsDo6fDzMhWPChAkTpgOZZtfsEfu7ZoeM2Rs/9hcmTJgwYXoDprblpR3KPv06K3zuR/XfZ0yYMGHCdAumNmmbB5x5gJ2XFRPEAiJJ8mLChAkTpsOZrkrRtve2E9ssyfM/x8M/DSZMmDBhOpZps5XmRdDNQH8zrVy/BRMmTJgwHcLUtubMBjQLsDdp4mTZiiXBhAkTJkwHMs024ISj5StSrsHI8+dHfwVMmDBhwnQsU1utez6gvJlmk4qdlUXbOUbnJkyYMGHC9PZMbZo1n9isdWbTuHNV+9GL/xEmTJgwYTqQ6dpYrw1x2/LkJjDOS7CYMGHChOkeTO1mvyHIS4lXQWzoMWHChAnT/ZjyNGv+6PwJbZJ3kz5uw35MmDBhwnQu0yyUbYuI7fY/XO1gFm3JExMmTJgw3Ynpqpdd1TSTL9X+CPLiLkyYMGHCdCxTDnRVeDwram6Wap/8xYQJEyZM5zJ9lle7Mc+mnbcBbULuYl6YMGHChOlYpnaDbJO2SYCaHBpmh4ykwJmPGRMmTJgwncu0b9BpjxdtyN2GzXmSOkfEhAkTJkynMyUNOm27T90iswiViwlfmx7HhAkTJky3Y9oHxu0xYrbxb4C+uQsTJkyYMP0xpk0zaBugtuPMA/hikTBhwoQJ0+FMmwnvI8oNbk48W2xMmDBhwnQ6UxsKzkqPSSp2NtVknPsQHRMmTJgwHcj0D16ulofT2rhSAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '人去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '哦哦，在呢！';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
